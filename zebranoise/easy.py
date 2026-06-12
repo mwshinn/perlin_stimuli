@@ -46,7 +46,7 @@ def zebra_noise(output_file, xsize, ysize, tdur, levels=10, xyscale=.2, tscale=5
     for _i in tqdm(range(0, tsize)):
         i = get_index(_i)
         frame = generate_frames(xsize, ysize, tsize, [i], levels=levels, xyscale=xyscale, tscale=tscale, xscale=xscale, yscale=yscale, seed=seed)
-        filtered = apply_filters(frame[None], filters)[0] # TODO I don't think this will work with the photodiode filter
+        filtered = apply_filters(frame, filters, frame_start=_i)
         disc = discretize(filtered[:,:,0])
         writer.append_data(disc)
     writer.close()
